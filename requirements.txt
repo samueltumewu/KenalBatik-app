@@ -1,0 +1,25 @@
+#requirements for developer
+
+Membaut project React JS secara manual menggunakan Webpack 4 dan Babel 7
+
+1. install devDependencies webpack dan babel sebagai berikut:
+npm install --save-dev 
+@babel/core 
+@babel/preset-env 
+@babel/preset-react 
+@babel/plugin-proposal-class-properties 
+babel-loader 
+react-hot-loader 
+webpack webpack-cli 
+webpack-dev-server 
+css-loader 
+style-loader 
+file-loader 
+url-loader 
+html-webpack-plugin
+
+2. install dependences react:
+npm install --save 
+react 
+react-dom 
+axios
