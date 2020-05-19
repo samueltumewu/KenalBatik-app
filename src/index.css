@@ -12,12 +12,13 @@ body {
     font-size: 20px;
     text-align: center;
     margin: 20px 0 20px;
+    color: whitesmoke;
   }
   h1 small {
     display: block;
     font-size: 15px;
     padding-top: 8px;
-    color: gray;
+    color: whitesmoke;
   }
   .avatar-upload {
     position: relative;
@@ -94,14 +95,22 @@ body {
     border: solid 1px transparent;
     color: #fff;
     font-weight: 300;
+    transition: all .1s ease-in-out;
     cursor: pointer;
+  }
+  .button-predict:enabled:hover{
+    background-color: transparent;
+    border-color: #fff;
     transition: all .1s ease-in-out;
   }
-  .button-predict:hover {
-      background-color: transparent;
-      border-color: #fff;
-      transition: all .1s ease-in-out;
+  .button-predict:disabled{
+    background-color: transparent;
+    color: whitesmoke;
   }
+  .button-predict:disabled:hover {
+    cursor: default;
+  }
+
 
   /* under construction */
   .loader.active {
