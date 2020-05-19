@@ -17,9 +17,12 @@ const ResultTable = (props) => {
 
   return [
     <div id="result-table-container">
-      <h1>Motif {props.greatestMotif}</h1>
+      <h1>Motif: {props.greatestMotif}</h1>
       <table className='result-table'>
       <thead>
+        <tr>
+          <th colSpan='2' id='table-header'>Tabel Detil</th>
+        </tr>
         <tr>
           <th>Motif</th>
           <th>Prob</th>
