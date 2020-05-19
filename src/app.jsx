@@ -1,5 +1,6 @@
 import React from 'react';
 import ResultTable from './component/resultTable.jsx';
+import LoadingSection from './component/loadingSection.jsx';
 import './index.css';
 import start_image from './image/placeholder-1.png';
 const axios = require('axios');
@@ -11,7 +12,8 @@ class App extends React.Component {
       previewImageUrl: start_image,
       imageFile: null,
       resultPredictions: null,
-      greatestMotif: null
+      greatestMotif: null,
+      isLoading : 0 //0->False, 1->True, 2->Error runtime
     };
     this.handleInputImage = this.handleInputImage.bind(this);
     this.handlePredictButton = this.handlePredictButton.bind(this);
@@ -25,13 +27,17 @@ class App extends React.Component {
        this.setState({
          previewImageUrl: reader.result,
          imageFile: file,
-         resultPredictions: null
+         resultPredictions: null,
+         isLoading: 0
        });
     }
     reader.readAsDataURL(file)
   }
 
   handlePredictButton = (e) => {
+    this.setState({
+      isLoading: 1
+    });
     const urlPredict = `http://192.168.1.12:5000/predict`;
 
     const formData = new FormData();
@@ -39,13 +45,13 @@ class App extends React.Component {
 
     axios.post(urlPredict, formData)
     .then(resp => {
+      //stop the loading indicator
+      this.setState({
+        isLoading: 0
+      });
+
       console.log(resp.data.predictions)
       console.log(resp.data.greatestMotif)
-
-      // fetch Label Motif with greatest prob value
-      this.setState({
-        greatestMotif: resp.data.greatestMotif
-      });
 
       // fetch Predictions Label and its Prob
       const fetchData = resp.data.predictions;
@@ -55,10 +61,14 @@ class App extends React.Component {
       }
 
       this.setState({
+        greatestMotif: resp.data.greatestMotif,
         resultPredictions : _result
       });
 
     }).catch(err => {
+      this.setState({
+        isLoading: 3
+      });
       console.log(err);
     })
   }
@@ -66,7 +76,7 @@ class App extends React.Component {
   render() {
     return [
       <div className="container">
-          <h1>Submit your image</h1>
+          <h1>Kenal-Batik</h1>
 
           <div className="avatar-upload">
               <div className="avatar-edit">
@@ -84,14 +94,19 @@ class App extends React.Component {
                   </div>
               </div>
           </div>
-
+          {/*92140cr*/}
           <div className='button-div'>
+            {this.state.isLoading === 3 &&
+              <h1 style={{color: '#69140e'}}>Something is Wrong. Try Again Later</h1>}
+
             <button className='button-predict'
                     onClick={this.handlePredictButton}
                     disabled={this.state.resultPredictions !== null}>
                     {this.state.resultPredictions !== null ?
-                      'Predictions Result' : 'Predict'}
+                       'Hasil Prediksi' : 'Predict'}
             </button>
+            {this.state.isLoading === 1 &&
+              <LoadingSection/>}
           </div>
 
           <div>
