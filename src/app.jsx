@@ -32,7 +32,7 @@ class App extends React.Component {
   }
 
   handlePredictButton = (e) => {
-    const urlPredict = `http://0.0.0.0:5000/predict`;
+    const urlPredict = `http://192.168.1.12:5000/predict`;
 
     const formData = new FormData();
     formData.append('image', this.state.imageFile);
@@ -66,7 +66,7 @@ class App extends React.Component {
   render() {
     return [
       <div className="container">
-          <h1 style={{color: "whitesmoke"}}>Submit your image</h1>
+          <h1>Submit your image</h1>
 
           <div className="avatar-upload">
               <div className="avatar-edit">
@@ -86,7 +86,12 @@ class App extends React.Component {
           </div>
 
           <div className='button-div'>
-            <button className='button-predict' onClick={this.handlePredictButton}>Predict</button>
+            <button className='button-predict'
+                    onClick={this.handlePredictButton}
+                    disabled={this.state.resultPredictions !== null}>
+                    {this.state.resultPredictions !== null ?
+                      'Predictions Result' : 'Predict'}
+            </button>
           </div>
 
           <div>
