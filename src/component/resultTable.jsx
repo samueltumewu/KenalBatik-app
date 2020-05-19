@@ -4,7 +4,6 @@ import {ARRAY_MOTIF} from '../app.jsx';
 
 const ResultTable = (props) => {
   let contentRows = []
-
   Object.keys(props.predictions)
     .forEach(function(key) {
       contentRows.push(
@@ -15,8 +14,6 @@ const ResultTable = (props) => {
       )
     }
   );
-
-  console.log(contentRows);
 
   return [
     <div>
