@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import './table-style.css';
 import {ARRAY_MOTIF} from '../app.jsx';
 
 const ResultTable = (props) => {
@@ -16,9 +16,9 @@ const ResultTable = (props) => {
   );
 
   return [
-    <div>
+    <div id="result-table-container">
       <h1>Motif {props.greatestMotif}</h1>
-      <table>
+      <table className='result-table'>
       <thead>
         <tr>
           <th>Motif</th>
