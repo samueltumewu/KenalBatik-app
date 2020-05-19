@@ -5,7 +5,10 @@
   margin: 0 auto;
   border-collapse: collapse;
   color: whitesmoke;
-  width: 50%;
+  width: 40%;
+}
+#table-header{
+  text-align: center;
 }
 @media screen and (max-width: 479px){
   .result-table{
@@ -15,19 +18,19 @@
 
 .result-table th, .result-table td{
   text-align: left;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 4px;
 }
 
 .result-table tr:nth-child(-n+5){
-  background-color: #718ca1;
+  background-color: #0aad77;
 }
 
 .result-table tr:nth-last-child(-n+2){
-  background-color: #59748c;
+  background-color: #038b5d;
 }
 
 .result-table th {
-  background-color: #354d62;
+  background-color: #02594f;
   padding: 10px 4px;
 }

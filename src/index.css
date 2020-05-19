@@ -1,6 +1,6 @@
 
 body {
-    background: #0d8d73;
+    background: #048a81;
     font-family: "Open Sans", sans-serif;
   }
   .container {
@@ -109,11 +109,4 @@ body {
   }
   .button-predict:disabled:hover {
     cursor: default;
-  }
-
-
-  /* under construction */
-  .loader.active {
-    animation: loading 2s ease-in-out;
-    animation-fill-mode: forwards;
   }
