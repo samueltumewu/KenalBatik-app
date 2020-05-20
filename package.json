@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy": "http://pakcarik.petra.ac.id:54633",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot true --port 3000 --host 0.0.0.0",
     "build": "webpack --mode production"
