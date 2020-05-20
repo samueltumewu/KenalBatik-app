@@ -38,7 +38,7 @@ class App extends React.Component {
     this.setState({
       isLoading: 1
     });
-    const urlPredict = `http://192.168.1.12:5000/predict`;
+    const urlPredict = `http://localhost:5000/predict`;
 
     const formData = new FormData();
     formData.append('image', this.state.imageFile);
