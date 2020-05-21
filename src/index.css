@@ -23,7 +23,7 @@ body {
   .avatar-upload {
     position: relative;
     max-width: 205px;
-    margin: 50px auto;
+    margin: 50px auto 10px auto;
   }
   .avatar-upload .avatar-edit {
     position: absolute;
@@ -80,10 +80,48 @@ body {
     background-repeat: no-repeat;
     background-position: center;
   }
+  .input-url-div{
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #urlToImageId:enabled{
+    width: 210px;
+    padding-left: 3px;
+    border: 2px solid whitesmoke;
+    background-color: white;
+    border-radius: 4px;
+    height: 28px;
+  }
+  #urlToImageId:disabled{
+    padding-left: 3px;
+    border: 2px solid #cccccc;
+    border-radius: 4px;
+    height: 28px;
+  }
+  .input-url-div button{
+    width: 60px;
+    height: 32px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #1c89ff;
+  }
+  .input-url-div button:hover{
+    color: #ccc;
+    cursor: pointer;
+  }
+  .input-url-div button:disabled{
+    color: #ccc;
+  }
+  .input-url-div button:disabled:hover{
+    cursor: default;
+  }
   .button-div{
     background-color: transparent;
     text-align: center;
-    margin: 15px 0;
+    margin: 50px 0;
   }
   .button-predict{
     position: relative;
