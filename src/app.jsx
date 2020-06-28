@@ -11,18 +11,26 @@ class App extends React.Component {
     this.state = {
       previewImageUrl: start_image,
       imageFile: null,
-      resultPredictions: null,
-      greatestMotif: null,
-      isLoading : 0 //0->False, 1->True, 2->Error runtime
+      resultPredictions: null, //hasil prediksi
+      greatestMotif: null, //nama motif dengan prob tertinggi
+      isLoading : 0, //0->False, 1->True, 2->Error runtime
+      isErrUrl: false,
+      errMessageUser: '',
+      errMessageBackend: '',
+      urlSearchImage: '' //url to image file
+
     };
     this.handleInputImage = this.handleInputImage.bind(this);
     this.handlePredictButton = this.handlePredictButton.bind(this);
+    this.handleInputURL = this.handleInputURL.bind(this);
+    this.handleUrlButton = this.handleUrlButton.bind(this);
   }
 
   handleInputImage = (e) =>{
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
+    console.log(file);
     reader.onloadend = () => {
        this.setState({
          previewImageUrl: reader.result,
@@ -34,11 +42,63 @@ class App extends React.Component {
     reader.readAsDataURL(file)
   }
 
+  handleInputURL = (e) => {
+    e.preventDefault();
+    this.setState({ urlSearchImage: e.target.value });
+  }
+
+  handleUrlButton = (e) => {
+    e.preventDefault();
+    axios({
+      url: this.state.urlSearchImage,
+      method: 'GET',
+      responseType: 'arraybuffer',
+      crossdomain: true
+    })
+    .then(resp => {
+      var arrayBufferView = new Uint8Array( resp.data );
+      var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
+      // var urlCreator = window.URL || window.webkitURL;
+      // var imageUrl = urlCreator.createObjectURL( blob );
+      var imageFile = new File([blob], "imageFromInternet", {type: "image/jpeg"})
+      console.log(imageFile)
+
+      const base64image = btoa(
+        new Uint8Array(resp.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          '',
+        ),
+      );
+      this.setState({
+        resultPredictions: null,
+        previewImageUrl: "data:;base64," + base64image,
+        errMessageUser: '',
+        isErrUrl: false,
+        imageFile: imageFile
+      });
+    }).catch(err => {
+      this.setState({
+        previewImageUrl: start_image,
+        isErrUrl: true,
+        errMessageUser: 'Maaf url ini tidak bisa diakses. silahkan unduh gambar terlebih dahulu'
+      });
+      console.log('my error: ', err);
+    })
+  }
+
   handlePredictButton = (e) => {
+    e.preventDefault();
+
+    document.getElementById('urlToImageId').value = '';
+
     this.setState({
       isLoading: 1
     });
+<<<<<<< HEAD
     const urlPredict = `http://pakcarik.petra.ac.id:54633/predict`;
+=======
+    const urlPredict = `http://192.168.1.12:5000/batik/api/predict/`;
+>>>>>>> 9119e99bbf944c83afa2f01b67e2220f4c26a90c
 
     const formData = new FormData();
     formData.append('image', this.state.imageFile);
@@ -62,12 +122,17 @@ class App extends React.Component {
 
       this.setState({
         greatestMotif: resp.data.greatestMotif,
-        resultPredictions : _result
+        resultPredictions : _result,
+        errMessageBackend: '',
+        isErrUrl: false
       });
 
     }).catch(err => {
       this.setState({
-        isLoading: 3
+        isLoading: 3,
+        isErrUrl: false,
+        errMessageBackend: 'Something is Wrong. try Again Later',
+        imageFile: null
       });
       console.log(err);
     })
@@ -94,10 +159,29 @@ class App extends React.Component {
                   </div>
               </div>
           </div>
-          {/*92140cr*/}
+
+
+
+            <p style={{textAlign: 'center'}}>atau melalui url:</p>
+          <div className='input-url-div'>
+            <input
+                   type="url"
+                   id="urlToImageId"
+                   placeholder='image url'
+                   onChange={this.handleInputURL}>
+                 </input>
+             <button
+                 onClick={this.handleUrlButton}>
+               <i className="fa fa-search"></i>
+             </button>
+          </div>
+
+          {this.state.isErrUrl === true &&
+            <p style={{color: '#69140e',textAlign: 'center'}}>{this.state.errMessageUser}</p>}
+
           <div className='button-div'>
             {this.state.isLoading === 3 &&
-              <h1 style={{color: '#69140e'}}>Something is Wrong. Try Again Later</h1>}
+              <p style={{color: '#69140e',textAlign: 'center'}}>{this.state.errMessageBackend}</p>}
 
             <button className='button-predict'
                     onClick={this.handlePredictButton}
