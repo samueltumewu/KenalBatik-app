@@ -94,7 +94,7 @@ class App extends React.Component {
     this.setState({
       isLoading: 1
     });
-    const urlPredict = `http://192.168.1.12:5000/predict`;
+    const urlPredict = `http://192.168.1.12:5000/batik/api/predict/`;
 
     const formData = new FormData();
     formData.append('image', this.state.imageFile);
@@ -167,7 +167,6 @@ class App extends React.Component {
                    onChange={this.handleInputURL}>
                  </input>
              <button
-                 disabled={this.state.urlSearchImage !== null}
                  onClick={this.handleUrlButton}>
                <i className="fa fa-search"></i>
              </button>
