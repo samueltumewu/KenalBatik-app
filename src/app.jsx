@@ -13,7 +13,7 @@ class App extends React.Component {
       imageFile: null,
       resultPredictions: null, //hasil prediksi
       greatestMotif: null, //nama motif dengan prob tertinggi
-      isLoading : 0, //0->False, 1->True, 2->Error runtime
+      isLoading : 0, //0->False, 1->True, 3->Error server
       isErrUrl: false,
       errMessageUser: '',
       errMessageBackend: '',
@@ -58,8 +58,6 @@ class App extends React.Component {
     .then(resp => {
       var arrayBufferView = new Uint8Array( resp.data );
       var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
-      // var urlCreator = window.URL || window.webkitURL;
-      // var imageUrl = urlCreator.createObjectURL( blob );
       var imageFile = new File([blob], "imageFromInternet", {type: "image/jpeg"})
       console.log(imageFile)
 
