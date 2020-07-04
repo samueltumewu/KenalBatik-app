@@ -25,7 +25,7 @@ const ResultTable = (props) => {
         </tr>
         <tr>
           <th>Motif</th>
-          <th>Prob</th>
+          <th>Prob (%)</th>
         </tr>
       </thead>
       <tbody>
