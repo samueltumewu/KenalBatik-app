@@ -92,7 +92,7 @@ class App extends React.Component {
     this.setState({
       isLoading: 1
     });
-    const urlPredict = `http://localhost/batik/api/predict/`;
+    const urlPredict = `http://server/batik/api/predict/`;
 
     const formData = new FormData();
     formData.append('image', this.state.imageFile);
